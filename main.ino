@@ -5,9 +5,6 @@ int rel = 4;
 char input;
 
 void setup() {
-
-  digitalWrite(rst, HIGH);
-  pinMode(rst, OUTPUT);
   pinMode(rel, OUTPUT);
   Serial.begin(9600);
 }
@@ -77,9 +74,7 @@ void hoofdPrograma(char input) {
     /* de OR operator dient niet zo gebruikt te worden, doe je het toch? Hij zal dan niet alleen op x of X reageren maar op alles. */
     verzenden = false;
     killmsg();
-
   }
-
 }
 
 void knipperLED() {
