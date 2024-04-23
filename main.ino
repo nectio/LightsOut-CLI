@@ -2,7 +2,7 @@ unsigned long vrgMilis = 0;
 const long interval = 5000; // Interval voor inactiefCon()
 bool verzenden = true; // Verzenden van idle berichten bedienen
 int rel = 4;
-char input;
+char ingang;
 
 void setup() {
   pinMode(rel, OUTPUT);
@@ -16,8 +16,8 @@ void loop() {
   }
 
   if (Serial.available() > 0) {
-    char input = Serial.read();
-    hoofdPrograma(input);
+    char ingang = Serial.read();
+    hoofdPrograma(ingang);
   }
 }
 
@@ -30,10 +30,10 @@ void inactiefCon() {
   }
 }
 
-void hoofdPrograma(char input) {
-  if (input == 'h' || input == 'H') {
+void hoofdPrograma(char ingang) {
+  if (ingang == 'h' || ingang == 'H') {
     verzenden = false;
-    Serial.println(input);
+    Serial.println(ingang);
     Serial.println("\033[91;49m========== HELPMENU ==========");
     Serial.println("");
     Serial.println("\033[91;49m==== ALGEMENE BEDIENINGEN ====");
@@ -45,36 +45,38 @@ void hoofdPrograma(char input) {
     Serial.println("[H] Toon deze hulpmenu");
     Serial.println("[I] Informatie");
     rdy();
-  } else if (input == 'c' || input == 'C') {
+  } else if (ingang == 'c' || ingang == 'C') {
     Serial.print("[\033[2J\033[H");
     verzenden = false;
     rdy();
-  } else if (input == '1') {
-    Serial.println(input);
+  } else if (ingang == '1') {
+    Serial.println(ingang);
     digitalWrite(rel, HIGH);
     Serial.println("\033[32;49m[1] Lamp AAN");
     verzenden = false;
     knipperLED();
     rdy();
-  } else if (input == '0' || input == '2') {
-    Serial.println(input);
+  } else if (ingang == '0' || ingang == '2') {
+    Serial.println(ingang);
     digitalWrite(rel, LOW);
     Serial.println("\033[31;49m[0 / 2] Lamp UIT");
     verzenden = false;
     knipperLED();
     rdy();
-  } else if (input == 'i' || input == 'I') {
-    Serial.println(input);
+  } else if (ingang == 'i' || ingang == 'I') {
+    Serial.println(ingang);
     Serial.println("\033[39;49mLights Out");
     Serial.println("CLI versie 2");
     Serial.println("\033[39;49mGemaakt door \033[34;49;1m17\033[36;49;1mnct \033[0m@ 2024");
     verzenden = false;
     rdy();
-  } else if ((input == 'x' || 'X') && verzenden == true) {
+  } else if ((ingang == 'x' || 'X') && verzenden == true) {
     /* de OR operator dient niet zo gebruikt te worden, doe je het toch? Hij zal dan niet alleen op x of X reageren maar op alles. */
     verzenden = false;
     killmsg();
+
   }
+
 }
 
 void knipperLED() {
